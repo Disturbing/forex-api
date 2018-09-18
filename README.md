@@ -22,5 +22,5 @@
         "to": "JPY"
     }
 #### Libaries Used
-* Geocoder
-* forex-python
+* [geocoder](https://github.com/DenisCarriere/geocoder#installation)
+* [forex-python](https://github.com/MicroPyramid/forex-python#installation)
