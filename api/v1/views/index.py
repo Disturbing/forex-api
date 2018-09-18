@@ -7,6 +7,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from forex_python.converter import CurrencyRates, Decimal
 from datetime import datetime
+import geocoder
 
 @app_views.route('/status')
 def getStatus():
@@ -25,3 +26,12 @@ def getConversion():
     info = {"timestamp": str(datetime.now()),
             "rate": c.get_rate(query['from'], query['to'])}
     return jsonify({"query":query, "info":info, "result": result})
+
+@app_views.route('/locate/')
+@app_views.route('/locate/<location>' )
+def getCoords(location='me'):
+    if location == 'me' or '.' in location:
+        g = geocoder.ip(location)
+    else:
+        g = geocoder.google(location)
+    return jsonify(g.json)
