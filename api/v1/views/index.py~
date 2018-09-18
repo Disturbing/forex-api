@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+'''
+index page for flask
+displays status and converter
+'''
+from flask import jsonify, request, abort
+from api.v1.views import app_views
+from forex_python.converter import CurrencyRates, Decimal
+from datetime import datetime
+
+@app_views.route('/status')
+def getStatus():
+    return jsonify({'status': 'OK'})
+
+
+@app_views.route('/convert')
+def getConversion():
+    try:
+        query = {}
+        c = CurrencyRates()
+        query['to'] = request.args.get('to')
+        query['from'] = request.args.get('from')
+        query['amount'] = request.args.get('amt')
+        result = c.convert(query['from'], query['to'],
+                           Decimal(query['amount']))
+        info = {"timestamp": str(datetime.now()),
+                "rate": c.get_rate(query['from'], query['to'])}
+        return jsonify({"query":query, "info":info, "result": result})
+    except:
+        abort(404)
