@@ -21,3 +21,6 @@
         "from": "USD",
         "to": "JPY"
     }
+#### Libaries Used
+* Geocoder
+* forex-python
