@@ -3,7 +3,7 @@
 `python3 -m api.v1.app`
 
 ### API Example
-`http://0.0.0.0:5000/api/v1/convert?from=USD&to=JPY&amt=25`
+`http://0.0.0.0:5000/api/convert?from=USD&to=JPY&amt=25`
 
 ### Example Output
 
@@ -22,5 +22,4 @@
         "to": "JPY"
     }
 #### Libaries Used
-* [geocoder](https://github.com/DenisCarriere/geocoder#installation)
 * [forex-python](https://github.com/MicroPyramid/forex-python#installation)
