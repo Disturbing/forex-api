@@ -1,0 +1,104 @@
+---
+swagger: "2.0"
+info:
+  description: "Forex-Python API"
+  version: "1"
+  title: "CurrencyConverter"
+host: "virtserver.swaggerhub.com"
+basePath: "/Dkazem91/KintoHubCurrencies/1"
+schemes:
+- "https"
+paths:
+  /currencies:
+    get:
+      summary: "Gets a list of currencies"
+      operationId: "currencies_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "an array of strings"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /get_rate/{currency}:
+    get:
+      summary: "gets rate based on base currency"
+      description: "returns list of rates"
+      operationId: "get_rate_currency_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "currency"
+        in: "path"
+        description: "currency to get a list of all rates against it"
+        required: true
+        type: "string"
+      - name: "on"
+        in: "query"
+        description: "YYYY-MM-DD format of date to check"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "list of all rates against base currency"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /get_rate:
+    get:
+      summary: "gets rate based on query parameters"
+      description: "returns rate based on default('USD') or query parameters"
+      operationId: "get_rate_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "on"
+        in: "query"
+        description: "YYYY-MM-DD format of date to check rates on"
+        required: false
+        type: "string"
+      - name: "from"
+        in: "query"
+        description: "base currency of which to get rate from."
+        required: false
+        type: "string"
+      - name: "to"
+        in: "query"
+        description: "currency to convert amount into"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "rate of two currencies"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /convert:
+    get:
+      summary: "gives converted amount based on parameters"
+      description: "returns an amount, query, and info"
+      operationId: "convert_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "on"
+        in: "query"
+        description: "YYYY-MM-DD format of date to base rates for conversion"
+        required: false
+        type: "string"
+      - name: "from"
+        in: "query"
+        description: "base currency of amount"
+        required: true
+        type: "string"
+      - name: "to"
+        in: "query"
+        description: "currency to convert amount into"
+        required: true
+        type: "string"
+      - name: "amt"
+        in: "query"
+        description: "amount of base currency"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "query sent, info, and amount"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions: {}
