@@ -23,17 +23,17 @@ paths:
             $ref: "#/definitions/ISO4217s"
       x-swagger-router-controller: swagger_server.controllers.default_controller
 
-  /get_rates/{base_currency}:
+  /get_rates/{from}:
     get:
       summary: Get all rates against a currency.
-      description: Gets rates of all available currencies based on base currency.
+      description: Gets rates of all available currencies based on base currency (from parameter).
       operationId: get_rates_get
       produces:
       - application/json
       parameters:
       - name: date
         in: query
-        description: YYYY-MM-DD format of date to check rates on
+        description: YYYY-MM-DD format of date to check rates on.
         required: false
         type: string
         default: current date
@@ -44,7 +44,9 @@ paths:
         type: string
       responses:
         200:
-          description: list of all rates against base currency
+          description: Array of Conversion of all available currencies against the base currency.
+          schema:
+            $ref: "#/definitions/Conversions"
       x-swagger-router-controller: swagger_server.controllers.default_controller
 
   /get_rate/{from}/{to}:
@@ -78,7 +80,7 @@ paths:
             $ref: "#/definitions/Conversion"
       x-swagger-router-controller: swagger_server.controllers.default_controller
 
-  /convert:
+  /convert/{from}/{to}/{amt}:
     get:
       summary: gives converted amount based on parameters
       description: returns an amount, query, and info
@@ -88,27 +90,30 @@ paths:
       parameters:
       - name: date
         in: query
-        description: YYYY-MM-DD format of date to base rates for conversion
+        description: YYYY-MM-DD format of date to check rates on
         required: false
         type: string
+        default: current date
       - name: from
-        in: query
-        description: base currency of amount
+        in: path
+        description: Three letter ISO 4217 alphabetic code for the currency that's being converted from.
         required: true
         type: string
       - name: to
-        in: query
-        description: currency to convert amount into
+        in: path
+        description: Three letter ISO 4217 alphabetic code for the currency that's being converted to.
         required: true
         type: string
       - name: amt
-        in: query
-        description: amount of base currency
+        in: path
+        description: The amount of base currency to convert from.
         required: true
-        type: integer
+        type: number            # can't be integer since users need to be able to use decimals
       responses:
         200:
-          description: query sent, info, and amount
+          description: Conversion object based on parameters
+          schema:
+            $ref: "#/definitions/Conversion"
       x-swagger-router-controller: swagger_server.controllers.default_controller
 
 definitions:
