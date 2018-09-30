@@ -1,104 +1,152 @@
----
 swagger: "2.0"
 info:
-  description: "Forex-Python API"
-  version: "1"
-  title: "CurrencyConverter"
-host: "virtserver.swaggerhub.com"
-basePath: "/Dkazem91/KintoHubCurrencies/1"
+  description: Forex-Python API
+  version: 1.0.0
+  title: CurrencyConverter
+host: virtserver.swaggerhub.com
+basePath: /Dkazem91/KintoHubCurrencies/1
 schemes:
-- "https"
+- https
 paths:
-  /currencies:
+
+  /available_currencies:
     get:
-      summary: "Gets a list of currencies"
-      operationId: "currencies_get"
+      summary: Get an array of available currencies
+      description: Gets an array of the three letter ISO 4217 alphabetic codes
+      operationId: currencies_get
       produces:
-      - "application/json"
-      parameters: []
+      - application/json
       responses:
         200:
-          description: "an array of strings"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
-  /get_rate/{currency}:
+          description: An array of the 3 letter ISO 4217 alphabetic codes for all available currencies.
+          schema:
+            $ref: "#/definitions/ISO4217s"
+      x-swagger-router-controller: swagger_server.controllers.default_controller
+
+  /get_rates/{base_currency}:
     get:
-      summary: "gets rate based on base currency"
-      description: "returns list of rates"
-      operationId: "get_rate_currency_get"
+      summary: Get all rates against a currency.
+      description: Gets rates of all available currencies based on base currency.
+      operationId: get_rates_get
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "currency"
-        in: "path"
-        description: "currency to get a list of all rates against it"
+      - name: date
+        in: query
+        description: YYYY-MM-DD format of date to check rates on
+        required: false
+        type: string
+        default: current date
+      - name: base_currency
+        in: path
+        description: Base currency to get rates against.
         required: true
-        type: "string"
-      - name: "on"
-        in: "query"
-        description: "YYYY-MM-DD format of date to check"
-        required: false
-        type: "string"
+        type: string
       responses:
         200:
-          description: "list of all rates against base currency"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
-  /get_rate:
+          description: list of all rates against base currency
+      x-swagger-router-controller: swagger_server.controllers.default_controller
+
+  /get_rate/{from}/{to}:
     get:
-      summary: "gets rate based on query parameters"
-      description: "returns rate based on default('USD') or query parameters"
-      operationId: "get_rate_get"
+      summary: Gets rate from one currency to another.
+      description: Returns a Conversion with from_amt always equal to 1.
+      operationId: get_rate_get
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "on"
-        in: "query"
-        description: "YYYY-MM-DD format of date to check rates on"
+      - name: date
+        in: query
+        description: YYYY-MM-DD format of date to check rates on
         required: false
-        type: "string"
-      - name: "from"
-        in: "query"
-        description: "base currency of which to get rate from."
-        required: false
-        type: "string"
-      - name: "to"
-        in: "query"
-        description: "currency to convert amount into"
-        required: false
-        type: "string"
+        type: string
+        default: current date
+      - name: from
+        in: path
+        description: Three letter ISO 4217 alphabetic code for the currency that's being converted from.
+        required: true
+        type: string
+      - name: to
+        in: path
+        description: Three letter ISO 4217 alphabetic code for the currency that's being converted to.
+        required: true
+        type: string
       responses:
         200:
-          description: "rate of two currencies"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+          description: A Conversion object with from_amt equal to 1.
+          schema:
+            $ref: "#/definitions/Conversion"
+      x-swagger-router-controller: swagger_server.controllers.default_controller
+
   /convert:
     get:
-      summary: "gives converted amount based on parameters"
-      description: "returns an amount, query, and info"
-      operationId: "convert_get"
+      summary: gives converted amount based on parameters
+      description: returns an amount, query, and info
+      operationId: convert_get
       produces:
-      - "application/json"
+      - application/json
       parameters:
-      - name: "on"
-        in: "query"
-        description: "YYYY-MM-DD format of date to base rates for conversion"
+      - name: date
+        in: query
+        description: YYYY-MM-DD format of date to base rates for conversion
         required: false
-        type: "string"
-      - name: "from"
-        in: "query"
-        description: "base currency of amount"
+        type: string
+      - name: from
+        in: query
+        description: base currency of amount
         required: true
-        type: "string"
-      - name: "to"
-        in: "query"
-        description: "currency to convert amount into"
+        type: string
+      - name: to
+        in: query
+        description: currency to convert amount into
         required: true
-        type: "string"
-      - name: "amt"
-        in: "query"
-        description: "amount of base currency"
+        type: string
+      - name: amt
+        in: query
+        description: amount of base currency
         required: true
-        type: "integer"
+        type: integer
       responses:
         200:
-          description: "query sent, info, and amount"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
-definitions: {}
+          description: query sent, info, and amount
+      x-swagger-router-controller: swagger_server.controllers.default_controller
+
+definitions:
+  # Array of 3 letter ISO 4217 alphabetic codes.
+  ISO4217s:
+    type: array
+    items:
+      type: string
+      description: Three letter ISO 4217 alphabetic code
+
+  # Describes the conversion from one currency to another.
+  Conversion:
+    type: object
+    properties:
+      date:
+        type: string
+        description: YYYY-MM-DD format of date the conversion data is based off of
+      from_iso:
+        type: string
+        description: Three letter ISO 4217 alphabetic code for the currency that's being converted from
+      to_iso:
+        type: string
+        description: Three letter ISO 4217 alphabetic code for the currency that's being converted to
+      from_amt:
+        type: number
+        description: the amount of from_iso being converted
+      to_amt:
+        type: number
+        description: the amount of to_iso that the amount of from_iso converts to
+    required:
+      - date
+      - from_iso
+      - to_iso
+      - from_amt
+      - to_amt
+
+  # Array of Conversions
+  Conversions:
+    type: array
+    items:
+      $ref: "#/definitions/Conversion"
