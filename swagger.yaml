@@ -8,25 +8,23 @@ basePath: /Dkazem91/KintoHubCurrencies/1
 schemes:
 - https
 paths:
-
   /available_currencies:
     get:
       summary: Get an array of available currencies
-      description: Gets an array of the three letter ISO 4217 alphabetic codes
+      description: Gets an array of the 3 letter ISO 4217 alphabetic codes for all available currencies.
       operationId: currencies_get
       produces:
       - application/json
       responses:
         200:
-          description: An array of the 3 letter ISO 4217 alphabetic codes for all available currencies.
+          description: OK
           schema:
             $ref: "#/definitions/ISO4217s"
       x-swagger-router-controller: swagger_server.controllers.default_controller
-
   /get_rates/{from}:
     get:
       summary: Get all rates against a currency.
-      description: Gets rates of all available currencies based on base currency (from parameter).
+      description: Gets Array of Conversion of all available currencies against the base currency (from parameter).
       operationId: get_rates_get
       produces:
       - application/json
@@ -44,15 +42,16 @@ paths:
         type: string
       responses:
         200:
-          description: Array of Conversion of all available currencies against the base currency.
+          description: OK
           schema:
             $ref: "#/definitions/Conversions"
+        404:
+          $ref: "#/responses/NotFound"
       x-swagger-router-controller: swagger_server.controllers.default_controller
-
   /get_rate/{from}/{to}:
     get:
       summary: Gets rate from one currency to another.
-      description: Returns a Conversion with from_amt always equal to 1.
+      description: Returns a Conversion object with from_amt equal to 1.
       operationId: get_rate_get
       produces:
       - application/json
@@ -75,15 +74,16 @@ paths:
         type: string
       responses:
         200:
-          description: A Conversion object with from_amt equal to 1.
+          description: OK
           schema:
             $ref: "#/definitions/Conversion"
+        404:
+          $ref: "#/responses/NotFound"
       x-swagger-router-controller: swagger_server.controllers.default_controller
-
   /convert/{from}/{to}/{amt}:
     get:
       summary: gives converted amount based on parameters
-      description: returns an amount, query, and info
+      description: returns a Conversion object based on parameters
       operationId: convert_get
       produces:
       - application/json
@@ -96,12 +96,12 @@ paths:
         default: current date
       - name: from
         in: path
-        description: Three letter ISO 4217 alphabetic code for the currency that's being converted from.
+        description: Three letter ISO 4217 alphabetic code for the currency thats being converted from.
         required: true
         type: string
       - name: to
         in: path
-        description: Three letter ISO 4217 alphabetic code for the currency that's being converted to.
+        description: Three letter ISO 4217 alphabetic code for the currency thats being converted to.
         required: true
         type: string
       - name: amt
@@ -111,11 +111,18 @@ paths:
         type: number            # can't be integer since users need to be able to use decimals
       responses:
         200:
-          description: Conversion object based on parameters
+          description: OK
           schema:
             $ref: "#/definitions/Conversion"
+        404:
+          $ref: "#/responses/NotFound"
       x-swagger-router-controller: swagger_server.controllers.default_controller
-
+responses:
+  # 404
+  NotFound:
+    description: The specified resource was not found
+    schema:
+      $ref: "#/definitions/Error"
 definitions:
   # Array of 3 letter ISO 4217 alphabetic codes.
   ISO4217s:
@@ -123,7 +130,6 @@ definitions:
     items:
       type: string
       description: Three letter ISO 4217 alphabetic code
-
   # Describes the conversion from one currency to another.
   Conversion:
     type: object
@@ -149,9 +155,19 @@ definitions:
       - to_iso
       - from_amt
       - to_amt
-
   # Array of Conversions
   Conversions:
     type: array
     items:
       $ref: "#/definitions/Conversion"
+  # Error responses
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    required:
+      - code
+      - message
