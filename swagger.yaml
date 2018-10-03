@@ -37,7 +37,7 @@ paths:
         required: false
         type: string
         default: current date
-      - name: base_currency
+      - name: from
         in: path
         description: Base currency to get rates against.
         required: true
