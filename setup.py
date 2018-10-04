@@ -18,10 +18,10 @@ REQUIRES = ["connexion"]
 setup(
     name=NAME,
     version=VERSION,
-    description="CurrencyConverter",
+    description="Currency Converter",
     author_email="",
     url="",
-    keywords=["Swagger", "CurrencyConverter"],
+    keywords=["Swagger", "Currency Converter"],
     install_requires=REQUIRES,
     packages=find_packages(),
     package_data={'': ['swagger/swagger.yaml']},
@@ -29,7 +29,7 @@ setup(
     entry_points={
         'console_scripts': ['swagger_server=swagger_server.__main__:main']},
     long_description="""\
-    Forex-Python API
+    Forex API
     """
 )
 

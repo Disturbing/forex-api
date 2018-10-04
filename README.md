@@ -21,13 +21,13 @@ python3 -m swagger_server
 and open your browser to here:
 
 ```
-http://localhost:8080/Dkazem91/KintoHubCurrencies/1/ui/
+http://localhost:8080/forex/ui/
 ```
 
 Your Swagger definition lives here:
 
 ```
-http://localhost:8080/Dkazem91/KintoHubCurrencies/1/swagger.json
+http://localhost:8080/forex/swagger.json
 ```
 
 To launch the integration tests, use tox:

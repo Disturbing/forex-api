@@ -8,7 +8,18 @@ from swagger_server.models.iso4217s import ISO4217s  # noqa: E501
 from swagger_server import util
 
 
-def convert_get(_from, to, amt, date=None):  # noqa: E501
+def get_available_currencies():  # noqa: E501
+    """Get an array of available currencies
+
+    Gets an array of the 3 letter ISO 4217 alphabetic codes for all available currencies. # noqa: E501
+
+
+    :rtype: ISO4217s
+    """
+    return 'do some magic!'
+
+
+def get_convert_from_to_amt(_from, to, amt, date=None):  # noqa: E501
     """gives converted amount based on parameters
 
     returns a Conversion object based on parameters # noqa: E501
@@ -27,18 +38,7 @@ def convert_get(_from, to, amt, date=None):  # noqa: E501
     return 'do some magic!'
 
 
-def currencies_get():  # noqa: E501
-    """Get an array of available currencies
-
-    Gets an array of the 3 letter ISO 4217 alphabetic codes for all available currencies. # noqa: E501
-
-
-    :rtype: ISO4217s
-    """
-    return 'do some magic!'
-
-
-def get_rate_get(_from, to, date=None):  # noqa: E501
+def get_get_rate_from_to(_from, to, date=None):  # noqa: E501
     """Gets rate from one currency to another.
 
     Returns a Conversion object with from_amt equal to 1. # noqa: E501
@@ -55,7 +55,7 @@ def get_rate_get(_from, to, date=None):  # noqa: E501
     return 'do some magic!'
 
 
-def get_rates_get(_from, date=None):  # noqa: E501
+def get_get_rates_from(_from, date=None):  # noqa: E501
     """Get all rates against a currency.
 
     Gets Array of Conversion of all available currencies against the base currency (from parameter). # noqa: E501

@@ -1,11 +1,11 @@
 ---
 swagger: "2.0"
 info:
-  description: "Forex-Python API"
+  description: "Forex API"
   version: "1.0.0"
-  title: "CurrencyConverter"
-host: "virtserver.swaggerhub.com"
-basePath: "/Dkazem91/KintoHubCurrencies/1"
+  title: "Currency Converter"
+host: "kintohub.com"
+basePath: "/forex"
 schemes:
 - "https"
 paths:
@@ -14,7 +14,7 @@ paths:
       summary: "Get an array of available currencies"
       description: "Gets an array of the 3 letter ISO 4217 alphabetic codes for all\
         \ available currencies."
-      operationId: "currencies_get"
+      operationId: "get_available_currencies"
       produces:
       - "application/json"
       parameters: []
@@ -29,7 +29,7 @@ paths:
       summary: "Get all rates against a currency."
       description: "Gets Array of Conversion of all available currencies against the\
         \ base currency (from parameter)."
-      operationId: "get_rates_get"
+      operationId: "get_get_rates_from"
       produces:
       - "application/json"
       parameters:
@@ -58,7 +58,7 @@ paths:
     get:
       summary: "Gets rate from one currency to another."
       description: "Returns a Conversion object with from_amt equal to 1."
-      operationId: "get_rate_get"
+      operationId: "get_get_rate_from_to"
       produces:
       - "application/json"
       parameters:
@@ -94,7 +94,7 @@ paths:
     get:
       summary: "gives converted amount based on parameters"
       description: "returns a Conversion object based on parameters"
-      operationId: "convert_get"
+      operationId: "get_convert_from_to_amt"
       produces:
       - "application/json"
       parameters:
