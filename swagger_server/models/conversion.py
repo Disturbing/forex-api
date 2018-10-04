@@ -46,9 +46,9 @@ class Conversion(Model):
         }
 
         self._date = date
-        self._from_iso = from_iso
+        self._frm_iso = from_iso
         self._to_iso = to_iso
-        self._from_amt = from_amt
+        self._frm_amt = from_amt
         self._to_amt = to_amt
 
     @classmethod
@@ -96,7 +96,7 @@ class Conversion(Model):
         :return: The from_iso of this Conversion.
         :rtype: str
         """
-        return self._from_iso
+        return self._frm_iso
 
     @from_iso.setter
     def from_iso(self, from_iso: str):
@@ -110,7 +110,7 @@ class Conversion(Model):
         if from_iso is None:
             raise ValueError("Invalid value for `from_iso`, must not be `None`")  # noqa: E501
 
-        self._from_iso = from_iso
+        self._frm_iso = from_iso
 
     @property
     def to_iso(self) -> str:
@@ -146,7 +146,7 @@ class Conversion(Model):
         :return: The from_amt of this Conversion.
         :rtype: float
         """
-        return self._from_amt
+        return self._frm_amt
 
     @from_amt.setter
     def from_amt(self, from_amt: float):
@@ -160,7 +160,7 @@ class Conversion(Model):
         if from_amt is None:
             raise ValueError("Invalid value for `from_amt`, must not be `None`")  # noqa: E501
 
-        self._from_amt = from_amt
+        self._frm_amt = from_amt
 
     @property
     def to_amt(self) -> float:

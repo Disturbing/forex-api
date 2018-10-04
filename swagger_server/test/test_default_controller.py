@@ -26,40 +26,40 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_convert_from_to_amt(self):
-        """Test case for get_convert_from_to_amt
+    def test_get_convert_frm_to_amt(self):
+        """Test case for get_convert_frm_to_amt
 
         gives converted amount based on parameters
         """
         query_string = [('date', 'current date')]
         response = self.client.open(
-            '/forex/convert/{from}/{to}/{amt}'.format(_from='_from_example', to='to_example', amt=8.14),
+            '/forex/convert/{from}/{to}/{amt}'.format(_frm='_frm_example', to='to_example', amt=8.14),
             method='GET',
             query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_get_rate_from_to(self):
-        """Test case for get_get_rate_from_to
+    def test_get_get_rate_frm_to(self):
+        """Test case for get_get_rate_frm_to
 
         Gets rate from one currency to another.
         """
         query_string = [('date', 'current date')]
         response = self.client.open(
-            '/forex/get_rate/{from}/{to}'.format(_from='_from_example', to='to_example'),
+            '/forex/get_rate/{from}/{to}'.format(_frm='_frm_example', to='to_example'),
             method='GET',
             query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_get_rates_from(self):
-        """Test case for get_get_rates_from
+    def test_get_get_rates_frm(self):
+        """Test case for get_get_rates_frm
 
         Get all rates against a currency.
         """
         query_string = [('date', 'current date')]
         response = self.client.open(
-            '/forex/get_rates/{from}'.format(_from='_from_example'),
+            '/forex/get_rates/{from}'.format(_frm='_frm_example'),
             method='GET',
             query_string=query_string)
         self.assert200(response,

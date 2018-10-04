@@ -24,12 +24,12 @@ paths:
           schema:
             $ref: "#/definitions/ISO4217s"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
-  /get_rates/{from}:
+  /get_rates/{frm}:
     get:
       summary: "Get all rates against a currency."
       description: "Gets Array of Conversion of all available currencies against the\
-        \ base currency (from parameter)."
-      operationId: "get_get_rates_from"
+        \ base currency (frm parameter)."
+      operationId: "get_get_rates_frm"
       produces:
       - "application/json"
       parameters:
@@ -38,8 +38,7 @@ paths:
         description: "YYYY-MM-DD format of date to check rates on."
         required: false
         type: "string"
-        default: "current date"
-      - name: "from"
+      - name: "frm"
         in: "path"
         description: "Base currency to get rates against."
         required: true
@@ -54,11 +53,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
-  /get_rate/{from}/{to}:
+  /get_rate/{frm}/{to}:
     get:
-      summary: "Gets rate from one currency to another."
-      description: "Returns a Conversion object with from_amt equal to 1."
-      operationId: "get_get_rate_from_to"
+      summary: "Gets rate frm one currency to another."
+      description: "Returns a Conversion object with frm_amt equal to 1."
+      operationId: "get_get_rate_frm_to"
       produces:
       - "application/json"
       parameters:
@@ -67,11 +66,10 @@ paths:
         description: "YYYY-MM-DD format of date to check rates on"
         required: false
         type: "string"
-        default: "current date"
-      - name: "from"
+      - name: "frm"
         in: "path"
         description: "Three letter ISO 4217 alphabetic code for the currency that's\
-          \ being converted from."
+          \ being converted frm."
         required: true
         type: "string"
       - name: "to"
@@ -90,11 +88,11 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
-  /convert/{from}/{to}/{amt}:
+  /convert/{frm}/{to}/{amt}:
     get:
       summary: "gives converted amount based on parameters"
       description: "returns a Conversion object based on parameters"
-      operationId: "get_convert_from_to_amt"
+      operationId: "get_convert_frm_to_amt"
       produces:
       - "application/json"
       parameters:
@@ -103,11 +101,10 @@ paths:
         description: "YYYY-MM-DD format of date to check rates on"
         required: false
         type: "string"
-        default: "current date"
-      - name: "from"
+      - name: "frm"
         in: "path"
         description: "Three letter ISO 4217 alphabetic code for the currency thats\
-          \ being converted from."
+          \ being converted frm."
         required: true
         type: "string"
       - name: "to"
@@ -118,7 +115,7 @@ paths:
         type: "string"
       - name: "amt"
         in: "path"
-        description: "The amount of base currency to convert from."
+        description: "The amount of base currency to convert frm."
         required: true
         type: "number"
       responses:
@@ -150,32 +147,32 @@ definitions:
     type: "object"
     required:
     - "date"
-    - "from_amt"
-    - "from_iso"
+    - "frm_amt"
+    - "frm_iso"
     - "to_amt"
     - "to_iso"
     properties:
       date:
         type: "string"
         description: "YYYY-MM-DD format of date the conversion data is based off of"
-      from_iso:
+      frm_iso:
         type: "string"
         description: "Three letter ISO 4217 alphabetic code for the currency that's\
-          \ being converted from"
+          \ being converted frm"
       to_iso:
         type: "string"
         description: "Three letter ISO 4217 alphabetic code for the currency that's\
           \ being converted to"
-      from_amt:
+      frm_amt:
         type: "number"
-        description: "the amount of from_iso being converted"
+        description: "the amount of frm_iso being converted"
       to_amt:
         type: "number"
-        description: "the amount of to_iso that the amount of from_iso converts to"
+        description: "the amount of to_iso that the amount of frm_iso converts to"
     example:
       date: "date"
-      from_iso: "from_iso"
-      from_amt: 0.80082819046101150206595775671303272247314453125
+      frm_iso: "frm_iso"
+      frm_amt: 0.80082819046101150206595775671303272247314453125
       to_iso: "to_iso"
       to_amt: 6.02745618307040320615897144307382404804229736328125
   Conversions:
@@ -190,13 +187,13 @@ definitions:
     example:
       list_of_conversions:
       - date: "date"
-        from_iso: "from_iso"
-        from_amt: 0.80082819046101150206595775671303272247314453125
+        frm_iso: "frm_iso"
+        frm_amt: 0.80082819046101150206595775671303272247314453125
         to_iso: "to_iso"
         to_amt: 6.02745618307040320615897144307382404804229736328125
       - date: "date"
-        from_iso: "from_iso"
-        from_amt: 0.80082819046101150206595775671303272247314453125
+        frm_iso: "frm_iso"
+        frm_amt: 0.80082819046101150206595775671303272247314453125
         to_iso: "to_iso"
         to_amt: 6.02745618307040320615897144307382404804229736328125
   Error:
