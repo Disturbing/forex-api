@@ -15,15 +15,21 @@ class ISO4217s(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self):  # noqa: E501
+    def __init__(self, list_of_iso4217s: List[str]=None):  # noqa: E501
         """ISO4217s - a model defined in Swagger
 
+        :param list_of_iso4217s: The list_of_iso4217s of this ISO4217s.  # noqa: E501
+        :type list_of_iso4217s: List[str]
         """
         self.swagger_types = {
+            'list_of_iso4217s': List[str]
         }
 
         self.attribute_map = {
+            'list_of_iso4217s': 'list_of_ISO4217s'
         }
+
+        self._list_of_iso4217s = list_of_iso4217s
 
     @classmethod
     def from_dict(cls, dikt) -> 'ISO4217s':
@@ -35,3 +41,26 @@ class ISO4217s(Model):
         :rtype: ISO4217s
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def list_of_iso4217s(self) -> List[str]:
+        """Gets the list_of_iso4217s of this ISO4217s.
+
+
+        :return: The list_of_iso4217s of this ISO4217s.
+        :rtype: List[str]
+        """
+        return self._list_of_iso4217s
+
+    @list_of_iso4217s.setter
+    def list_of_iso4217s(self, list_of_iso4217s: List[str]):
+        """Sets the list_of_iso4217s of this ISO4217s.
+
+
+        :param list_of_iso4217s: The list_of_iso4217s of this ISO4217s.
+        :type list_of_iso4217s: List[str]
+        """
+        if list_of_iso4217s is None:
+            raise ValueError("Invalid value for `list_of_iso4217s`, must not be `None`")  # noqa: E501
+
+        self._list_of_iso4217s = list_of_iso4217s

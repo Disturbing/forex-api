@@ -133,10 +133,19 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
   ISO4217s:
-    type: "array"
-    items:
-      type: "string"
-      description: "Three letter ISO 4217 alphabetic code"
+    type: "object"
+    required:
+    - "list_of_ISO4217s"
+    properties:
+      list_of_ISO4217s:
+        type: "array"
+        items:
+          type: "string"
+          description: "Three letter ISO 4217 alphabetic code"
+    example:
+      list_of_ISO4217s:
+      - "list_of_ISO4217s"
+      - "list_of_ISO4217s"
   Conversion:
     type: "object"
     required:
@@ -170,9 +179,26 @@ definitions:
       to_iso: "to_iso"
       to_amt: 6.02745618307040320615897144307382404804229736328125
   Conversions:
-    type: "array"
-    items:
-      $ref: "#/definitions/Conversion"
+    type: "object"
+    required:
+    - "list_of_conversions"
+    properties:
+      list_of_conversions:
+        type: "array"
+        items:
+          $ref: "#/definitions/Conversion"
+    example:
+      list_of_conversions:
+      - date: "date"
+        from_iso: "from_iso"
+        from_amt: 0.80082819046101150206595775671303272247314453125
+        to_iso: "to_iso"
+        to_amt: 6.02745618307040320615897144307382404804229736328125
+      - date: "date"
+        from_iso: "from_iso"
+        from_amt: 0.80082819046101150206595775671303272247314453125
+        to_iso: "to_iso"
+        to_amt: 6.02745618307040320615897144307382404804229736328125
   Error:
     type: "object"
     required:

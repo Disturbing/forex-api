@@ -16,15 +16,21 @@ class Conversions(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self):  # noqa: E501
+    def __init__(self, list_of_conversions: List[Conversion]=None):  # noqa: E501
         """Conversions - a model defined in Swagger
 
+        :param list_of_conversions: The list_of_conversions of this Conversions.  # noqa: E501
+        :type list_of_conversions: List[Conversion]
         """
         self.swagger_types = {
+            'list_of_conversions': List[Conversion]
         }
 
         self.attribute_map = {
+            'list_of_conversions': 'list_of_conversions'
         }
+
+        self._list_of_conversions = list_of_conversions
 
     @classmethod
     def from_dict(cls, dikt) -> 'Conversions':
@@ -36,3 +42,26 @@ class Conversions(Model):
         :rtype: Conversions
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def list_of_conversions(self) -> List[Conversion]:
+        """Gets the list_of_conversions of this Conversions.
+
+
+        :return: The list_of_conversions of this Conversions.
+        :rtype: List[Conversion]
+        """
+        return self._list_of_conversions
+
+    @list_of_conversions.setter
+    def list_of_conversions(self, list_of_conversions: List[Conversion]):
+        """Sets the list_of_conversions of this Conversions.
+
+
+        :param list_of_conversions: The list_of_conversions of this Conversions.
+        :type list_of_conversions: List[Conversion]
+        """
+        if list_of_conversions is None:
+            raise ValueError("Invalid value for `list_of_conversions`, must not be `None`")  # noqa: E501
+
+        self._list_of_conversions = list_of_conversions
