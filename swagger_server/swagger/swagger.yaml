@@ -1,0 +1,190 @@
+---
+swagger: "2.0"
+info:
+  description: "Forex-Python API"
+  version: "1.0.0"
+  title: "CurrencyConverter"
+host: "virtserver.swaggerhub.com"
+basePath: "/Dkazem91/KintoHubCurrencies/1"
+schemes:
+- "https"
+paths:
+  /available_currencies:
+    get:
+      summary: "Get an array of available currencies"
+      description: "Gets an array of the 3 letter ISO 4217 alphabetic codes for all\
+        \ available currencies."
+      operationId: "currencies_get"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/ISO4217s"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /get_rates/{from}:
+    get:
+      summary: "Get all rates against a currency."
+      description: "Gets Array of Conversion of all available currencies against the\
+        \ base currency (from parameter)."
+      operationId: "get_rates_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "YYYY-MM-DD format of date to check rates on."
+        required: false
+        type: "string"
+        default: "current date"
+      - name: "from"
+        in: "path"
+        description: "Base currency to get rates against."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Conversions"
+        404:
+          description: "The specified resource was not found"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /get_rate/{from}/{to}:
+    get:
+      summary: "Gets rate from one currency to another."
+      description: "Returns a Conversion object with from_amt equal to 1."
+      operationId: "get_rate_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "YYYY-MM-DD format of date to check rates on"
+        required: false
+        type: "string"
+        default: "current date"
+      - name: "from"
+        in: "path"
+        description: "Three letter ISO 4217 alphabetic code for the currency that's\
+          \ being converted from."
+        required: true
+        type: "string"
+      - name: "to"
+        in: "path"
+        description: "Three letter ISO 4217 alphabetic code for the currency that's\
+          \ being converted to."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Conversion"
+        404:
+          description: "The specified resource was not found"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /convert/{from}/{to}/{amt}:
+    get:
+      summary: "gives converted amount based on parameters"
+      description: "returns a Conversion object based on parameters"
+      operationId: "convert_get"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "YYYY-MM-DD format of date to check rates on"
+        required: false
+        type: "string"
+        default: "current date"
+      - name: "from"
+        in: "path"
+        description: "Three letter ISO 4217 alphabetic code for the currency thats\
+          \ being converted from."
+        required: true
+        type: "string"
+      - name: "to"
+        in: "path"
+        description: "Three letter ISO 4217 alphabetic code for the currency thats\
+          \ being converted to."
+        required: true
+        type: "string"
+      - name: "amt"
+        in: "path"
+        description: "The amount of base currency to convert from."
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Conversion"
+        404:
+          description: "The specified resource was not found"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions:
+  ISO4217s:
+    type: "array"
+    items:
+      type: "string"
+      description: "Three letter ISO 4217 alphabetic code"
+  Conversion:
+    type: "object"
+    required:
+    - "date"
+    - "from_amt"
+    - "from_iso"
+    - "to_amt"
+    - "to_iso"
+    properties:
+      date:
+        type: "string"
+        description: "YYYY-MM-DD format of date the conversion data is based off of"
+      from_iso:
+        type: "string"
+        description: "Three letter ISO 4217 alphabetic code for the currency that's\
+          \ being converted from"
+      to_iso:
+        type: "string"
+        description: "Three letter ISO 4217 alphabetic code for the currency that's\
+          \ being converted to"
+      from_amt:
+        type: "number"
+        description: "the amount of from_iso being converted"
+      to_amt:
+        type: "number"
+        description: "the amount of to_iso that the amount of from_iso converts to"
+    example:
+      date: "date"
+      from_iso: "from_iso"
+      from_amt: 0.80082819046101150206595775671303272247314453125
+      to_iso: "to_iso"
+      to_amt: 6.02745618307040320615897144307382404804229736328125
+  Conversions:
+    type: "array"
+    items:
+      $ref: "#/definitions/Conversion"
+  Error:
+    type: "object"
+    required:
+    - "code"
+    - "message"
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
+responses:
+  NotFound:
+    description: "The specified resource was not found"
+    schema:
+      $ref: "#/definitions/Error"
