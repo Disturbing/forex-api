@@ -7,6 +7,7 @@ from swagger_server.models.error import Error  # noqa: E501
 from swagger_server.models.iso4217s import ISO4217s  # noqa: E501
 from swagger_server import util
 
+from forex_python.converter import CurrencyRates
 
 def get_available_currencies():  # noqa: E501
     """Get an array of available currencies
@@ -16,7 +17,11 @@ def get_available_currencies():  # noqa: E501
 
     :rtype: ISO4217s
     """
-    return 'do some magic!'
+    all_curs = ["AUD"]
+    c = CurrencyRates()
+    for cur in c.get_rates('AUD'):
+        all_curs.append(cur)
+    return ISO4217s(all_curs)
 
 
 def get_convert_from_to_amt(_from, to, amt, date=None):  # noqa: E501
