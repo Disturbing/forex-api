@@ -26,44 +26,125 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_convert_frm_to_amt(self):
+    def test_get_convert_frm_to_amt_with_date(self):
         """Test case for get_convert_frm_to_amt
 
         gives converted amount based on parameters
         """
-        query_string = [('date', 'current date')]
+        query_string = [('date', '2018-04-10')]
         response = self.client.open(
-            '/forex/convert/{from}/{to}/{amt}'.format(_frm='_frm_example', to='to_example', amt=8.14),
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='CAD', amt=8.14),
             method='GET',
             query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_get_rate_frm_to(self):
-        """Test case for get_get_rate_frm_to
+    def test_get_convert_frm_to_amt_no_date(self):
+        """Test case for get_convert_frm_to_amt
 
-        Gets rate from one currency to another.
+        gives converted amount based on parameters
         """
-        query_string = [('date', 'current date')]
         response = self.client.open(
-            '/forex/get_rate/{from}/{to}'.format(_frm='_frm_example', to='to_example'),
-            method='GET',
-            query_string=query_string)
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='CAD', amt=8.14),
+            method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_get_rates_frm(self):
-        """Test case for get_get_rates_frm
+    def test_get_convert_frm_to_amt_bad_date(self):
+        """Test case for get_convert_frm_to_amt
 
-        Get all rates against a currency.
+        gives converted amount based on parameters
         """
-        query_string = [('date', 'current date')]
+        query_string = [('date', '2018-13-10')]
         response = self.client.open(
-            '/forex/get_rates/{from}'.format(_frm='_frm_example'),
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='CAD', amt=8.14),
             method='GET',
             query_string=query_string)
-        self.assert200(response,
+        self.assert404(response,
                        'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_get_convert_frm_to_amt_bad_frm(self):
+        """Test case for get_convert_frm_to_amt
+
+        gives converted amount based on parameters
+        """
+        response = self.client.open(
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='UUUUUUUU', to='CAD', amt=8.14),
+            method='GET')
+        self.assert404(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_get_convert_frm_to_amt_bad_to(self):
+        """Test case for get_convert_frm_to_amt
+
+        gives converted amount based on parameters
+        """
+        response = self.client.open(
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='DDDDDDDDDDDD', amt=8.14),
+            method='GET')
+        self.assert404(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_get_convert_frm_to_amt_bad_amt(self):
+        """Test case for get_convert_frm_to_amt
+
+        gives converted amount based on parameters
+        """
+        response = self.client.open(
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='CAD', amt='abc123'),
+            method='GET')
+        self.assert404(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_get_convert_frm_to_amt_negative_amt(self):
+        """Test case for get_convert_frm_to_amt
+
+        gives converted amount based on parameters
+        """
+        response = self.client.open(
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='CAD', amt=-8.14),
+            method='GET')
+        self.assert404(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_get_convert_frm_to_amt_no_date_data(self):
+        """Test case for get_convert_frm_to_amt
+
+        gives converted amount based on parameters
+        """
+        query_string = [('date', '1995-04-10')]
+        response = self.client.open(
+            '/forex/convert/{frm}/{to}/{amt}'.format(frm='USD', to='CAD', amt=8.14),
+            method='GET',
+            query_string=query_string)
+        self.assert404(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    # def test_get_get_rate_frm_to(self):
+    #     """Test case for get_get_rate_frm_to
+
+    #     Gets rate from one currency to another.
+    #     """
+    #     query_string = [('date', 'current date')]
+    #     response = self.client.open(
+    #         '/forex/get_rate/{frm}/{to}'.format(frm='_frm_example', to='to_example'),
+    #         method='GET',
+    #         query_string=query_string)
+    #     self.assert200(response,
+    #                    'Response body is : ' + response.data.decode('utf-8'))
+
+    # def test_get_get_rates_frm(self):
+    #     """Test case for get_get_rates_frm
+
+    #     Get all rates against a currency.
+    #     """
+    #     query_string = [('date', 'current date')]
+    #     response = self.client.open(
+    #         '/forex/get_rates/{frm}'.format(frm='_frm_example'),
+    #         method='GET',
+    #         query_string=query_string)
+    #     self.assert200(response,
+    #                    'Response body is : ' + response.data.decode('utf-8'))
 
 
 if __name__ == '__main__':
