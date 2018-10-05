@@ -30,10 +30,9 @@ Your Swagger definition lives here:
 http://localhost:8080/forex/swagger.json
 ```
 
-To launch the integration tests, use tox:
+To launch the integration tests, run pytest:
 ```
-sudo pip install tox
-tox
+pytest
 ```
 
 ## Running with Docker

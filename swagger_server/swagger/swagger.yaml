@@ -90,7 +90,7 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
   /convert/{frm}/{to}/{amt}:
     get:
-      summary: "gives converted amount based on parameters"
+      summary: "Gives converted amount based on parameters."
       description: "returns a Conversion object based on parameters"
       operationId: "get_convert_frm_to_amt"
       produces:
