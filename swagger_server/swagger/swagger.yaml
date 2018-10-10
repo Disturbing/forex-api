@@ -172,9 +172,9 @@ definitions:
     example:
       date: "date"
       frm_iso: "frm_iso"
-      frm_amt: 0.80082819046101150206595775671303272247314453125
+      frm_amt: 0.8008281904610115
       to_iso: "to_iso"
-      to_amt: 6.02745618307040320615897144307382404804229736328125
+      to_amt: 6.027456183070403
   Conversions:
     type: "object"
     required:
@@ -188,26 +188,27 @@ definitions:
       list_of_conversions:
       - date: "date"
         frm_iso: "frm_iso"
-        frm_amt: 0.80082819046101150206595775671303272247314453125
+        frm_amt: 0.8008281904610115
         to_iso: "to_iso"
-        to_amt: 6.02745618307040320615897144307382404804229736328125
+        to_amt: 6.027456183070403
       - date: "date"
         frm_iso: "frm_iso"
-        frm_amt: 0.80082819046101150206595775671303272247314453125
+        frm_amt: 0.8008281904610115
         to_iso: "to_iso"
-        to_amt: 6.02745618307040320615897144307382404804229736328125
+        to_amt: 6.027456183070403
   Error:
     type: "object"
     required:
-    - "code"
-    - "message"
+    - "detail"
+    - "status"
+    - "title"
+    - "type"
     properties:
-      code:
+      detail:
         type: "string"
-      message:
+      status:
+        type: "integer"
+      title:
         type: "string"
-responses:
-  NotFound:
-    description: "The specified resource was not found"
-    schema:
-      $ref: "#/definitions/Error"
+      type:
+        type: "string"

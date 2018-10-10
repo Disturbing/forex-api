@@ -15,26 +15,36 @@ class Error(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, code: str=None, message: str=None):  # noqa: E501
+    def __init__(self, detail: str=None, status: int=None, title: str=None, type: str=None):  # noqa: E501
         """Error - a model defined in Swagger
 
-        :param code: The code of this Error.  # noqa: E501
-        :type code: str
-        :param message: The message of this Error.  # noqa: E501
-        :type message: str
+        :param detail: The detail of this Error.  # noqa: E501
+        :type detail: str
+        :param status: The status of this Error.  # noqa: E501
+        :type status: int
+        :param title: The title of this Error.  # noqa: E501
+        :type title: str
+        :param type: The type of this Error.  # noqa: E501
+        :type type: str
         """
         self.swagger_types = {
-            'code': str,
-            'message': str
+            'detail': str,
+            'status': int,
+            'title': str,
+            'type': str
         }
 
         self.attribute_map = {
-            'code': 'code',
-            'message': 'message'
+            'detail': 'detail',
+            'status': 'status',
+            'title': 'title',
+            'type': 'type'
         }
 
-        self._code = code
-        self._message = message
+        self._detail = detail
+        self._status = status
+        self._title = title
+        self._type = type
 
     @classmethod
     def from_dict(cls, dikt) -> 'Error':
@@ -48,47 +58,93 @@ class Error(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def code(self) -> str:
-        """Gets the code of this Error.
+    def detail(self) -> str:
+        """Gets the detail of this Error.
 
 
-        :return: The code of this Error.
+        :return: The detail of this Error.
         :rtype: str
         """
-        return self._code
+        return self._detail
 
-    @code.setter
-    def code(self, code: str):
-        """Sets the code of this Error.
+    @detail.setter
+    def detail(self, detail: str):
+        """Sets the detail of this Error.
 
 
-        :param code: The code of this Error.
-        :type code: str
+        :param detail: The detail of this Error.
+        :type detail: str
         """
-        if code is None:
-            raise ValueError("Invalid value for `code`, must not be `None`")  # noqa: E501
+        if detail is None:
+            raise ValueError("Invalid value for `detail`, must not be `None`")  # noqa: E501
 
-        self._code = code
+        self._detail = detail
 
     @property
-    def message(self) -> str:
-        """Gets the message of this Error.
+    def status(self) -> int:
+        """Gets the status of this Error.
 
 
-        :return: The message of this Error.
+        :return: The status of this Error.
+        :rtype: int
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status: int):
+        """Sets the status of this Error.
+
+
+        :param status: The status of this Error.
+        :type status: int
+        """
+        if status is None:
+            raise ValueError("Invalid value for `status`, must not be `None`")  # noqa: E501
+
+        self._status = status
+
+    @property
+    def title(self) -> str:
+        """Gets the title of this Error.
+
+
+        :return: The title of this Error.
         :rtype: str
         """
-        return self._message
+        return self._title
 
-    @message.setter
-    def message(self, message: str):
-        """Sets the message of this Error.
+    @title.setter
+    def title(self, title: str):
+        """Sets the title of this Error.
 
 
-        :param message: The message of this Error.
-        :type message: str
+        :param title: The title of this Error.
+        :type title: str
         """
-        if message is None:
-            raise ValueError("Invalid value for `message`, must not be `None`")  # noqa: E501
+        if title is None:
+            raise ValueError("Invalid value for `title`, must not be `None`")  # noqa: E501
 
-        self._message = message
+        self._title = title
+
+    @property
+    def type(self) -> str:
+        """Gets the type of this Error.
+
+
+        :return: The type of this Error.
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type: str):
+        """Sets the type of this Error.
+
+
+        :param type: The type of this Error.
+        :type type: str
+        """
+        if type is None:
+            raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
+
+        self._type = type
