@@ -47,9 +47,9 @@ def get_convert_frm_to_amt(frm, to, amt, date=None):  # noqa: E501
     :rtype: Conversion
     """
     if frm not in all_curs:
-        return Error("404", "from parameter is not a supported ISO4217 alphabetic code"), 404
+        return Error("from parameter is not a supported ISO4217 alphabetic code", 404, "Not Supported", "about:blank"), 404
     if to not in all_curs:
-        return Error("404", "to parameter is not a supported ISO4217 alphabetic code"), 404
+        return Error("to parameter is not a supported ISO4217 alphabetic code", 404, "Not Supported", "about:blank"), 404
 
     if date is None:
         date = datetime.today().strftime(date_format)
@@ -57,12 +57,12 @@ def get_convert_frm_to_amt(frm, to, amt, date=None):  # noqa: E501
     try:
         dt = datetime.strptime(date, date_format)
     except ValueError:
-        return Error("404", "invalid date, date format is YYYY-MM-DD"), 404
+        return Error("invalid date, date format is YYYY-MM-DD", 404, "Invalid Date", "about:blank"), 404
 
     try:
         return Conversion(date, frm, to, amt, c.convert(frm, to, amt, dt)), 200
     except RatesNotAvailableError as e:
-        return Error("404", str(e)), 404
+        return Error(str(e), 404, "Rates Not Available", "about:blank"), 404
 
 
 
@@ -81,9 +81,9 @@ def get_get_rate_frm_to(frm, to, date=None):  # noqa: E501
     :rtype: Conversion
     """
     if frm not in all_curs:
-        return Error("404", "from parameter is not a supported ISO4217 alphabetic code"), 404
+        return Error("from parameter is not a supported ISO4217 alphabetic code", 404, "Not Supported", "about:blank"), 404
     if to not in all_curs:
-        return Error("404", "to parameter is not a supported ISO4217 alphabetic code"), 404
+        return Error("to parameter is not a supported ISO4217 alphabetic code", 404, "Not Supported", "about:blank"), 404
 
     if date is None:
         date = datetime.today().strftime(date_format)
@@ -91,12 +91,12 @@ def get_get_rate_frm_to(frm, to, date=None):  # noqa: E501
     try:
         dt = datetime.strptime(date, date_format)
     except ValueError:
-        return Error("404", "invalid date, date format is YYYY-MM-DD"), 404
+        return Error("invalid date, date format is YYYY-MM-DD", 404, "Invalid Date", "about:blank"), 404
 
     try:
         return Conversion(date, frm, to, 1.0, c.get_rate(frm, to, dt)), 200
     except RatesNotAvailableError as e:
-        return Error("404", str(e)), 404
+        return Error(str(e), 404, "Rates Not Available", "about:blank"), 404
 
 
 def get_get_rates_frm(frm, date=None):  # noqa: E501
@@ -112,7 +112,7 @@ def get_get_rates_frm(frm, date=None):  # noqa: E501
     :rtype: Conversions
     """
     if frm not in all_curs:
-        return Error("404", "from parameter is not a supported ISO4217 alphabetic code"), 404
+        return Error("from parameter is not a supported ISO4217 alphabetic code", 404, "Not Supported", "about:blank"), 404
 
     if date is None:
         date = datetime.today().strftime(date_format)
@@ -120,13 +120,13 @@ def get_get_rates_frm(frm, date=None):  # noqa: E501
     try:
         dt = datetime.strptime(date, date_format)
     except ValueError:
-        return Error("404", "invalid date, date format is YYYY-MM-DD"), 404
+        return Error("invalid date, date format is YYYY-MM-DD", 404, "Invalid Date", "about:blank"), 404
 
     rates = []
     try:
         rates_dict = c.get_rates(frm, dt)
     except RatesNotAvailableError as e:
-        return Error("404", str(e)), 404
+        return Error(str(e), 404, "Rates Not Available", "about:blank"), 404
 
     for cur, rate in rates_dict.items():
         rates.append(Conversion(date, frm, cur, 1.0, rate))
