@@ -141,8 +141,8 @@ definitions:
           description: "Three letter ISO 4217 alphabetic code"
     example:
       list_of_ISO4217s:
-      - "list_of_ISO4217s"
-      - "list_of_ISO4217s"
+      - "USD"
+      - "CAD"
   Conversion:
     type: "object"
     required:
@@ -170,11 +170,11 @@ definitions:
         type: "number"
         description: "the amount of to_iso that the amount of frm_iso converts to"
     example:
-      date: "date"
-      frm_iso: "frm_iso"
-      frm_amt: 0.8008281904610115
-      to_iso: "to_iso"
-      to_amt: 6.027456183070403
+      date: "2018-10-09"
+      frm_iso: "USD"
+      frm_amt: 1.5
+      to_iso: "CAD"
+      to_amt: 1.9494000000000002
   Conversions:
     type: "object"
     required:
@@ -187,15 +187,15 @@ definitions:
     example:
       list_of_conversions:
       - date: "date"
-        frm_iso: "frm_iso"
-        frm_amt: 0.8008281904610115
-        to_iso: "to_iso"
-        to_amt: 6.027456183070403
+        frm_iso: "USD"
+        frm_amt: 1.0
+        to_iso: "CAD"
+        to_amt: 1.2996
       - date: "date"
-        frm_iso: "frm_iso"
-        frm_amt: 0.8008281904610115
-        to_iso: "to_iso"
-        to_amt: 6.027456183070403
+        frm_iso: "USD"
+        frm_amt: 1.0
+        to_iso: "EUR"
+        to_amt: 0.8745
   Error:
     type: "object"
     required:
