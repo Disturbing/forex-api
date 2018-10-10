@@ -4,7 +4,7 @@ info:
   description: "Forex API"
   version: "1.0.0"
   title: "Currency Converter"
-host: "kintohub.com"
+host: "localhost:8080"
 basePath: "/forex"
 schemes:
 - "https"
