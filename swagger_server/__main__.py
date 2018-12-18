@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 
 import connexion
-
+import os
 from swagger_server import encoder
+
+try:
+    PORT = os.environ["FOREX_PORT"]
+except KeyError:
+    raise ValueError("Must have environment variable FOREX_PORT defined to run this server")
 
 
 def main():

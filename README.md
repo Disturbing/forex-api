@@ -9,6 +9,7 @@ This example uses the [Connexion](https://github.com/zalando/connexion) library 
 
 ## Requirements
 Python 3.5.2+
+Ensure the port you want to run on is defined in your environment as a variable named FOREX_PORT.
 
 ## Usage
 To run the server, please execute the following from the root directory:
@@ -41,8 +42,8 @@ To run the server on a Docker container, please execute the following from the r
 
 ```bash
 # building the image
-docker build -t swagger_server .
+docker build --build-arg FOREX_PORT=$FOREX_PORT -t forex_server ./
 
 # starting up a container
-docker run -p 8080:8080 swagger_server
+docker run -p $FOREX_PORT:$FOREX_PORT forex_server
 ```
