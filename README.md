@@ -47,3 +47,23 @@ docker build --build-arg FOREX_PORT=$FOREX_PORT -t forex_server ./
 # starting up a container
 docker run -p $FOREX_PORT:$FOREX_PORT forex_server
 ```
+
+## Example Request/Response
+
+To generate more example curl commands, go to http://localhost:8080/forex/ui/ and click through the interface.
+
+#### request:
+```bash
+curl -X GET --header 'Accept: application/json' 'http://localhost:8080/forex/get_ratUSD/CAD'
+```
+
+#### response:
+```json
+{
+  "date": "2018-12-17",
+  "from_amt": 1.0,
+  "from_iso": "USD",
+  "to_amt": 1.3393,
+  "to_iso": "CAD"
+}
+```
