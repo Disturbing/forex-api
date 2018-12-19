@@ -9,7 +9,8 @@ This example uses the [Connexion](https://github.com/zalando/connexion) library 
 
 ## Requirements
 Python 3.5.2+
-Ensure the port you want to run on is defined in your environment as a variable named FOREX_PORT, and the host url you want to run on is defined in your environment as a variable named FOREX\_HOST.
+Ensure the port you want to run on is defined in your environment as a variable named FOREX_PORT. 
+Ensure the host url you want to run on is defined in your environment as a variable named FOREX\_HOST.
 
 ## Usage
 To run the server, please execute the following from the root directory:
